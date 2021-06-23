@@ -17,12 +17,21 @@
 	<properties>
 		<java.version>11</java.version>
 	</properties>
+
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/de.jflex/jflex -->
 		<dependency>
 			<groupId>de.jflex</groupId>
 			<artifactId>jflex</artifactId>
-			<version>1.6.1</version>
+			<version>1.8.2</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.github.vbmacher/java-cup -->
+		<dependency>
+			<groupId>com.github.vbmacher</groupId>
+			<artifactId>java-cup</artifactId>
+			<version>11b</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
