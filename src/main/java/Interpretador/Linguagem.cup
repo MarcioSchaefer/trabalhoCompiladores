@@ -1,0 +1,31 @@
+package Interpretador;
+
+import java_cup.runtime.*;
+import java.util.*;
+
+action code {:
+public Hashtable tabSym = new Hashtable();
+public Hashtable tabSymVar = new Hashtable();
+:}
+
+parser code 
+{:
+    public static void main (String args[]) throws Exception {
+        new parser (new AnalisadorLexico(System.in)).parse();
+    }
+
+    public String erro;
+    
+    public void erroDeSintaxe (String s) {
+        erro = ("Erro de sintaxe: s.value");
+
+        System.out.print(erro);
+    }
+:};
+
+	terminal	DIGITO, NUMERO, LETRA, PALAVRA, ESPACO, STRING, VARIAVEL, LISTA, REPETICAO, ATRIBUICAO, CONDICIONAL_SE,
+				CONDICIONAL_SENAO, OPERADOR_SOMA, OPERADOR_SUBTRACAO, OPERADOR_MULTIPLICACAO, OPERADOR_DIVISAO, RELACIONAL_MAIOR,
+				RELACIONAL_MENOR, NUMERO_ORDINAL, SEPARADOR_ABRE_PARENTESE, SEPARADOR_FECHA_PARENTESE, SEPARADOR_ABRE_COLCHETE,
+				SEPARADOR_FECHA_COLCHETE;
+
+non terminal

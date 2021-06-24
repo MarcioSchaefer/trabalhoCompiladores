@@ -6,11 +6,15 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.Scanner;
 
+//import Interpretador.AnalisadorLexico;
+
 public class ExecutaAnaliseLexica {
+	
+	
 	public static void main(String[] args) throws IOException  {
 		
 		// Informamos o diretorio do caminho com a entrada de dados a ser analisada
-		File diretorioArquivo = new File("src/main/java/Interpretador/Lexico/EntradaDeDadosTXT.txt");
+		File diretorioArquivo = new File("src/main/java/Interpretador/EntradaDeDadosTXT.txt");
 		
 		// Variavel que ira guardar o arquivo 
 		StringBuilder arquivo = new StringBuilder();

@@ -1,0 +1,2 @@
+Qual o 3º elemento da serie [5 10 15 20] 
+e escreva 'ta bom entao'?
