@@ -4,13 +4,14 @@ import java_cup.runtime.Symbol;
 
 %%
 
-%public
 %class AnalisadorLexico
 %cup
+%line
+%char
 %ignorecase
 
 %eofval{
-	return (new Symbol(sym.EOF));
+	return new Symbol(sym.EOF,new String("Fim do arquivo"));
 %eofval}
 
 DIGITO = [0-9]
@@ -23,15 +24,15 @@ VARIAVEL = ("#" {LETRA} | "#" {PALAVRA})
 LISTA = ("entre" | "serie")
 REPETICAO = ("escreva") 
 ATRIBUICAO = ("guarde" | "=")
+DELIMITADOR = (";" | "?")
+SEPARADOR = ","
 CONDICIONAL_SE = "se"
 CONDICIONAL_SENAO = "senao"
 OPERADOR_SOMA = ("mais" | "+")
 OPERADOR_SUBTRACAO = ("menos" | "-")
-OPERADOR_MULTIPLICACAO = ("vezes" | "*")
-OPERADOR_DIVISAO = ("dividido" | "/")
 RELACIONAL_MAIOR = "maior"
 RELACIONAL_MENOR = "menor"
-NUMERO_ORDINAL = ({NUMERO} "º" | {DIGITO} "º")
+SIMBOLO_ORDINAL = "º"
 SEPARADOR_ABRE_PARENTESE = "("
 SEPARADOR_FECHA_PARENTESE = ")"
 SEPARADOR_ABRE_COLCHETE = "["
@@ -39,34 +40,33 @@ SEPARADOR_FECHA_COLCHETE = "]"
 
 %%
 
-{LISTA}							{ return new Symbol(sym.LISTA); }
-{ATRIBUICAO}					{ return new Symbol(sym.ATRIBUICAO); }
-{REPETICAO}						{ return new Symbol(sym.REPETICAO); }
+	{LISTA}							{ return new Symbol(sym.LISTA, yytext()); }
+	{ATRIBUICAO}					{ return new Symbol(sym.ATRIBUICAO, yytext()); }
+	{REPETICAO}						{ return new Symbol(sym.REPETICAO, yytext()); }
+	{DELIMITADOR}					{ return new Symbol(sym.DELIMITADOR, yytext()); }
+	{SEPARADOR}						{ return new Symbol(sym.SEPARADOR, yytext()); }
+	
+	{SEPARADOR_ABRE_PARENTESE}		{ return new Symbol(sym.SEPARADOR_ABRE_PARENTESE, yytext()); }
+	{SEPARADOR_FECHA_PARENTESE}		{ return new Symbol(sym.SEPARADOR_FECHA_PARENTESE, yytext()); }
+	{SEPARADOR_ABRE_COLCHETE}		{ return new Symbol(sym.SEPARADOR_ABRE_COLCHETE, yytext()); }
+	{SEPARADOR_FECHA_COLCHETE}		{ return new Symbol(sym.SEPARADOR_FECHA_COLCHETE, yytext()); }
+	
+	{CONDICIONAL_SE}				{ return new Symbol(sym.CONDICIONAL_SE, yytext()); }
+	{CONDICIONAL_SENAO}				{ return new Symbol(sym.CONDICIONAL_SENAO, yytext()); }
+	{RELACIONAL_MAIOR}				{ return new Symbol(sym.RELACIONAL_MAIOR, yytext()); }
+	{RELACIONAL_MENOR}				{ return new Symbol(sym.RELACIONAL_MENOR, yytext()); }
+	
+	{OPERADOR_SOMA}					{ return new Symbol(sym.OPERADOR_SOMA, yytext()); }
+	{OPERADOR_SUBTRACAO}			{ return new Symbol(sym.OPERADOR_SUBTRACAO, yytext()); }
+	{SIMBOLO_ORDINAL}				{ return new Symbol(sym.SIMBOLO_ORDINAL, yytext()); }
+	
+	{DIGITO}						{ return new Symbol(sym.DIGITO, yytext()); }
+	{NUMERO}						{ return new Symbol(sym.NUMERO, yytext()); }
+	{LETRA}							{ return new Symbol(sym.LETRA, yytext()); }
+	{PALAVRA}						{ return new Symbol(sym.PALAVRA, yytext()); }
+	{VARIAVEL}						{ return new Symbol(sym.VARIAVEL, yytext()); }
+	{STRING}						{ return new Symbol(sym.STRING, yytext()); }
+		
+	{ESPACO}						{}
 
-{SEPARADOR_ABRE_PARENTESE}		{ return new Symbol(sym.SEPARADOR_ABRE_PARENTESE); }
-{SEPARADOR_FECHA_PARENTESE}		{ return new Symbol(sym.SEPARADOR_FECHA_PARENTESE); }
-{SEPARADOR_ABRE_COLCHETE}		{ return new Symbol(sym.SEPARADOR_ABRE_COLCHETE); }
-{SEPARADOR_FECHA_COLCHETE}		{ return new Symbol(sym.SEPARADOR_FECHA_COLCHETE); }
-
-{CONDICIONAL_SE}				{ return new Symbol(sym.CONDICIONAL_SE); }
-{CONDICIONAL_SENAO}				{ return new Symbol(sym.CONDICIONAL_SENAO); }
-{RELACIONAL_MAIOR}				{ return new Symbol(sym.RELACIONAL_MAIOR); }
-{RELACIONAL_MENOR}				{ return new Symbol(sym.RELACIONAL_MENOR); }
-
-{OPERADOR_SOMA}					{ return new Symbol(sym.OPERADOR_SOMA); }
-{OPERADOR_SUBTRACAO}			{ return new Symbol(sym.OPERADOR_SUBTRACAO); }
-{OPERADOR_MULTIPLICACAO}		{ return new Symbol(sym.OPERADOR_MULTIPLICACAO); }
-{OPERADOR_DIVISAO}				{ return new Symbol(sym.OPERADOR_DIVISAO); }
-{NUMERO_ORDINAL}				{ return new Symbol(sym.NUMERO_ORDINAL); }
-
-{DIGITO}						{ return new Symbol(sym.DIGITO); }
-{NUMERO}						{ return new Symbol(sym.NUMERO); }
-{LETRA}							{ return new Symbol(sym.LETRA); }
-{PALAVRA}						{ return new Symbol(sym.PALAVRA); }
-{VARIAVEL}						{ return new Symbol(sym.VARIAVEL); }
-{STRING}						{ return new Symbol(sym.STRING); }
-
-{ESPACO}						{}
-";" | "?"						{ return new Symbol(sym.EOF); }
-
-. { System.out.println("Caractere invalido: " + yytext() + "\n"); }
+.	{ System.out.println("CARACTERE ILEGAL: " + yytext() + "\n"); }

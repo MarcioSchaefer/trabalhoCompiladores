@@ -1,0 +1,11 @@
+Qual e o valor de (1 mais 4)?
+
+Qual e o 3º elemento da serie [5, 10, 15, 20]?
+
+Escreva 'Ola mundo' 50 vezes;
+
+Qual É maior entre [2, 3, 1]?
+
+Guarde 42 em #x;
+
+Se #x e maior que 40 escreva 'Sim' senao escreva 'Nao';

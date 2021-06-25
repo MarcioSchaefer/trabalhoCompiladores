@@ -1,0 +1,1 @@
+Se #x e maior que 40 guarde 'tamo junto' em #x senao escreva 'salve ivan'
